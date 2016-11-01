@@ -17,14 +17,37 @@ from email_preprocess import preprocess
 ### features_train and features_test are the features for the training
 ### and testing datasets, respectively
 ### labels_train and labels_test are the corresponding item labels
+t0 = time() 
 features_train, features_test, labels_train, labels_test = preprocess()
+print "data time:", round(time()-t0, 3), "s"
 
-
+#t0 = time() 
+#features_train = features_train[:len(features_train)/100] 
+#labels_train = labels_train[:len(labels_train)/100] 
+#print "data/100 time:", round(time()-t0, 3), "s"
 
 
 #########################################################
 ### your code goes here ###
+t0 = time() 
+from sklearn import svm
+clf = svm.SVC(C=10000.0, kernel='rbf')
+print clf
+clf.fit(features_train, labels_train)
+print "fit time:", round(time()-t0, 3), "s"
 
+t0 = time() 
+pred = clf.predict(features_test)
+from sklearn.metrics import accuracy_score
+acc = accuracy_score(pred, labels_test)
+print "Accuracy is " , acc
+print "predict time:", round(time()-t0, 3), "s"
+
+chris = 0
+for item in pred:
+	if item == 1: 
+		chris = chris+1
+print chris
 #########################################################
 
 

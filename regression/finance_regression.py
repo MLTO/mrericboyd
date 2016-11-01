@@ -22,6 +22,7 @@ dictionary = pickle.load( open("../final_project/final_project_dataset_modified.
 ### list the features you want to look at--first item in the 
 ### list will be the "target" feature
 features_list = ["bonus", "salary"]
+##features_list = ["bonus", "long_term_incentive"]
 data = featureFormat( dictionary, features_list, remove_any_zeroes=True)
 target, features = targetFeatureSplit( data )
 
@@ -38,12 +39,13 @@ test_color = "b"
 ### plots it correctly. Don't forget to change the test_color above from "b" to
 ### "r" to differentiate training points from test points.
 
-
-
-
-
-
-
+from sklearn import linear_model
+reg = linear_model.LinearRegression()
+reg.fit (feature_train, target_train)
+print ("reg slope", reg.coef_)
+print ("reg intercept", reg.intercept_)
+print ("r-squared train", reg.score(feature_train, target_train))
+print ("r-squared test", reg.score(feature_test, target_test))
 
 ### draw the scatterplot, with color-coded training and testing points
 import matplotlib.pyplot as plt
@@ -64,6 +66,13 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+
+reg.fit(feature_test, target_test)
+plt.plot(feature_train, reg.predict(feature_train), color="b") 
+print ("test r-squared", reg.score(feature_test, target_test))
+print ("test reg slope", reg.coef_)
+print ("test reg intercept", reg.intercept_)
+
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()

@@ -24,8 +24,18 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 ### your code goes here ###
+print len(features_train[0])
 
+from sklearn import tree
+clf = tree.DecisionTreeClassifier(min_samples_split=40)
 
+t0 = time() 
+clf = clf.fit(features_train, labels_train)
+print "fit time:", round(time()-t0, 3), "s"
+
+clf.predict(features_test)
+
+print 'accuracy is ', clf.score(features_test, labels_test)
 #########################################################
 
 

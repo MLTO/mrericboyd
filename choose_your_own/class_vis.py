@@ -34,6 +34,7 @@ def prettyPicture(clf, X_test, y_test):
     plt.ylabel("grade")
 
     plt.savefig("test.png")
+    plt.show()   # actually show the image to the user
 
 import base64
 import json
